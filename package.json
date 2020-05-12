@@ -1,0 +1,23 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hackaton-holadulce/Back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hackaton-holadulce/Back/issues"
+  },
+  "homepage": "https://github.com/Hackaton-holadulce/Back#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
