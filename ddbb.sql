@@ -35,3 +35,11 @@ INSERT INTO ingredient (id_ingredient, name, alergies, id_stock) VALUES(null,'Al
 INSERT INTO ingredient (id_ingredient, name, alergies, id_stock) VALUES(null,'Levadura química', null, null);
 INSERT INTO ingredient (id_ingredient, name, alergies, id_stock) VALUES(null,'Goma Xantana', null, null);
 INSERT INTO ingredient (id_ingredient, name, alergies, id_stock) VALUES(null,'Canela en polvo', null, null);
+
+
+INSERT INTO stock_ingredients (id_stock, name, expiration_date, kg) VALUES(null,'Azucar', '2020-12-20', 2);
+INSERT INTO stock_ingredients (id_stock, name, expiration_date, kg) VALUES(null,'Sal', '2020-12-22', 4);
+INSERT INTO stock_ingredients (id_stock, name, expiration_date, kg) VALUES(null,'Almidón Maiz', '2020-12-21', 3);
+INSERT INTO stock_ingredients (id_stock, name, expiration_date, kg) VALUES(null,'Levadura química', '2020-11-20', 1);
+INSERT INTO stock_ingredients (id_stock, name, expiration_date, kg) VALUES(null,'Goma Xantana', '2020-12-20', 0.3);
+INSERT INTO stock_ingredients (id_stock, name, expiration_date, kg) VALUES(null,'Canela en polvo', '2020-10-20', 2);
