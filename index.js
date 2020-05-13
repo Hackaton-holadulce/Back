@@ -30,7 +30,7 @@ app.get('/ingredient', (req, res) => {
     }  })
 })
 
-
+//display all stock for every ingredient
 
 app.get('/stock_ingredients', (req, res) => {
 
@@ -65,7 +65,6 @@ app.post('/box_recipe', (req, res) => {
     description: req.body.description,
     ingredients_quantity: req.body.ingredients_quantity
   }
-//put these information in the DB users table to create the new user
     connection.query(`INSERT INTO box_recipe (name, description) VALUES ('${formData.name}', '${formData.description}')`
  , (err) => {          // WE need to say formData to kw where to go searching the information
       if(err){
@@ -97,14 +96,15 @@ app.post('/box_recipe', (req, res) => {
 
 // post ingredient
 
+
+
 app.post('/ingredient', (req, res) => {
 
   const formData = {
     name: req.body.name,
     alergies: req.body.alergies,
   }
-//put these information in the DB users table to create the new user
-    connection.query(`INSERT INTO ingredient SET ?`, formData, (err) => {          // WE need to say formData to kw where to go searching the information
+    connection.query(`INSERT INTO ingredient SET ?`, formData, (err) => {
       if(err){
         res.status(500).send(err)
       } else {
@@ -115,26 +115,33 @@ app.post('/ingredient', (req, res) => {
 });
 
 
-// middle TABLE
-app.post('/quantities_ingredient', (req, res) => {
+
+// post stock, add products when they are recibed (name, expiration_date, kg)
+
+//creo que para hacer la conexión entre las dos tablas sería al revés por que a stock le tenemos que pasar ingredient_id no al revés
+
+
+app.post('/stock_ingredients', (req, res) => {
 
   const formData = {
-    quantity: req.body.quantity,
-    id_ingredient: req.body.id_ingredient,
-    id_box: req.body.id_box
+    name: req.body.name,
+    expiration_date: req.body.expiration_date,
+    kg: req.body.kg,
+    id_ingredient: req.body.id_ingredient
   }
-
-
-//put these information in the DB users table to create the new user
-    connection.query(`INSERT INTO quantities_ingredient WHERE id_ingredient = ? AND id_box = ? SET quantity = ?`, formData, (err) => {          // WE need to say formData to kw where to go searching the information
+    connection.query(`INSERT INTO stock_ingredients SET ?`, formData, (err) => {
       if(err){
         res.status(500).send(err)
       } else {
+        console.log('BIG SUCCESS')
         res.sendStatus(200)
       }
     })
 });
 
+
+
+// port listen
 
 app.listen(port,(err)=>{
     if (err) {
