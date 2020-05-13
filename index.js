@@ -130,12 +130,13 @@ app.post('/stock_ingredients', (req, res) => {
     kg: req.body.kg,
     id_ingredient: req.body.id_ingredient
   }
+  console.log(formData)
     connection.query(`INSERT INTO stock_ingredients SET ?`, formData, (err) => {
       if(err){
         res.status(500).send(err)
       } else {
-        console.log('BIG SUCCESS')
-        res.sendStatus(200)
+        SELECT
+        res.json("OK")
       }
     })
 });
