@@ -134,6 +134,7 @@ app.post('/stock_ingredients', (req, res) => {
       if(err){
         res.status(500).send(err)
       } else {
+        SELECT
         res.json("OK")
       }
     })
