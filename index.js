@@ -75,17 +75,18 @@ app.post('/box_recipe', (req, res) => {
             res.status(500).send(err)
           } else {
             let box_id = results[0].id_box
-
-
+            console.log(box_id)
+            
           formData.ingredients_quantity.map((ingredient_quantity) => {
             let ingredient = ingredient_quantity["ingredient"]
             let quantity = ingredient_quantity["quantity"]
-
+            console.log(ingredient)
               connection.query(`INSERT INTO quantities_ingredient (id_ingredient, id_box, quantity) VALUES (${ingredient}, ${box_id}, ${quantity}) `, (err) => {          // WE need to say formData to kw where to go searching the information
                 if(err){
                   res.status(500).send(err)
+                  console.log('hola')
                 } else {
-                  res.sendStatus(200)
+                  res.json('OK')
                 }
               })
             })
