@@ -134,11 +134,18 @@ app.post('/stock_ingredients', (req, res) => {
       if(err){
         res.status(500).send(err)
       } else {
-        SELECT
-        res.json("OK")
+        connection.query('SELECT name, expiration_date, kg, id_ingredient FROM stock_ingredients ORDER BY id_stock DESC LIMIT 1', (err, results) => {
+          console.log(results)
+          if(err) {
+            res.status(500).send(err)
+          } else {
+            res.json(results)
+          }
+        });
       }
     })
 });
+
 
 
 
