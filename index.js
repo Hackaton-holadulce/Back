@@ -60,41 +60,59 @@ app.get('/box_recipe', (req, res) => {
 //add post method to integrate recipe inside the table
 app.post('/box_recipe', (req, res) => {
 
-  const formData = {
-    name: req.body.name,
-    description: req.body.description,
-    ingredients_quantity: req.body.ingredients_quantity
-  }
-    connection.query(`INSERT INTO box_recipe (name, description) VALUES ('${formData.name}', '${formData.description}')`
- , (err) => {          // WE need to say formData to kw where to go searching the information
-      if(err){
-        res.status(500).send(err)
-      } else {
-        connection.query('SELECT id_box FROM box_recipe ORDER BY id_box DESC LIMIT 1', (err, results) => {
-          if(err) {
-            res.status(500).send(err)
-          } else {
-            let box_id = results[0].id_box
-            console.log(box_id)
-            
-          formData.ingredients_quantity.map((ingredient_quantity) => {
-            let ingredient = ingredient_quantity["ingredient"]
-            let quantity = ingredient_quantity["quantity"]
-            console.log(ingredient)
-              connection.query(`INSERT INTO quantities_ingredient (id_ingredient, id_box, quantity) VALUES (${ingredient}, ${box_id}, ${quantity}) `, (err) => {          // WE need to say formData to kw where to go searching the information
-                if(err){
-                  res.status(500).send(err)
-                  console.log('hola')
-                } else {
-                  res.json('OK')
-                }
-              })
-            })
-          }})
-        }
-      })
-  });
+    const formData = {
+        name: req.body.name,
+        description: req.body.description,
+        ingredients_quantity: req.body.ingredients_quantity
+    }
 
+    connection.query(`INSERT INTO box_recipe (name, description) VALUES ('${formData.name}', '${formData.description}')`,
+    (err) => {
+        // WE need to say formData to kw where to go searching the information
+        if (err) {
+
+            res.status(500).send(err)
+
+        } else {
+
+            connection.query('SELECT id_box FROM box_recipe ORDER BY id_box DESC LIMIT 1',
+            (err, results) => {
+
+                if(err) {
+
+                    res.status(500).send(err)
+
+                } else {
+                    let box_id = results[0].id_box
+                    console.log('box', box_id)
+
+                    let errorsCount = 0
+
+                    formData.ingredients_quantity.map((ingredient_quantity) => {
+                        let ingredient = ingredient_quantity["ingredient"]
+                        let quantity = ingredient_quantity["quantity"]
+                        console.log('ing', ingredient)
+                        connection.query(`INSERT INTO quantities_ingredient (id_ingredient, id_box, quantity) VALUES (${ingredient}, ${box_id}, ${quantity}) `,
+                        (err) => {
+                            // WE need to say formData to kw where to go searching the information
+
+                            if (err){
+                                // TODO: add this err to an array to be able to push them to the client later on line 113
+                                errorsCount++
+                            }
+                        })
+                    })
+
+                    if (errorsCount) {
+                        res.status(500).send('Error saving ingredients')
+                    } else {
+                        res.json('OK')
+                    }
+                }
+            })
+        }
+    })
+})
 // post ingredient
 
 
