@@ -165,6 +165,68 @@ app.post('/stock_ingredients', (req, res) => {
     })
 });
 
+// post venta
+
+// app.post('/sales', (req, res) => {
+//
+//   const formData = {
+//     id_box: req.body.id_box
+//   }
+//     connection.query(`INSERT INTO sales SET ?`, formData, (err) => {
+//       if(err){
+//         res.status(500).send(err)
+//       } else {
+//         console.log('BIG SUCCESS')
+//         res.sendStatus(200)
+//       }
+//     })
+// });
+
+
+//put venta
+
+app.post('/sales', (req, res) => {
+  data = {
+    id_box: req.body.id_box
+  }
+  connection.query('SELECT id_ingredient, quantity FROM quantities_ingredient WHERE id_box = ?', data.id_box,
+  (err, results) => {
+    if(err){
+      res.status(500).send(err)
+    } else {
+
+      let errorsCount = 0
+      results.map((ingredient_quantity) =>{
+        let ingredient = ingredient_quantity["id_ingredient"]
+        let quantity = ingredient_quantity["quantity"]
+
+        connection.query('SELECT id_ingredient, kg FROM stock_ingredients WHERE id_ingredient = ?', ingredient,
+           (err, results) => {
+            if(err){
+              res.status(500).send(err)
+            } else {
+              let id_stock_ingredient= results[0].id_ingredient
+              let kg = results[0].kg
+              let resta_quantity = kg - quantity
+
+              connection.query(`UPDATE stock_ingredients SET kg = ${resta_quantity} WHERE id_ingredient = ${id_stock_ingredient}`,
+              (err) => {
+                if(err){
+                  errorsCount++
+                }
+              })
+            }
+          })
+        })
+        if (errorsCount) {
+            res.status(500).send('Error saving ingredients')
+        } else {
+            res.json('OK')
+        }
+      }
+    })
+  });
+
 
 
 
