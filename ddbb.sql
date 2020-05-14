@@ -1,5 +1,5 @@
-CREATE DATABASE `ddbb_dulce8`;
-USE `ddbb_dulce8`;
+CREATE DATABASE `ddbb_dulce9`;
+USE `ddbb_dulce9`;
 
 CREATE TABLE `box_recipe` (
   `id_box` int PRIMARY KEY AUTO_INCREMENT,
@@ -10,7 +10,7 @@ CREATE TABLE `stock_ingredients` (
   `id_stock` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `expiration_date` date,
-  `kg` int,
+  `kg` decimal,
   `id_ingredient` int
 );
 CREATE TABLE `ingredient` (
@@ -21,7 +21,7 @@ CREATE TABLE `ingredient` (
 CREATE TABLE `quantities_ingredient` (
   `id_ingredient` int,
   `id_box` int,
-  `quantity` int
+  `quantity` decimal
 );
 
 CREATE TABLE `sales` (
