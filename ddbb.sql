@@ -4,7 +4,8 @@ USE `ddbb_dulce8`;
 CREATE TABLE `box_recipe` (
   `id_box` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
-  `description` varchar(255)
+  `description` varchar(255),
+  `package` int
 );
 CREATE TABLE `stock_ingredients` (
   `id_stock` int PRIMARY KEY AUTO_INCREMENT,
