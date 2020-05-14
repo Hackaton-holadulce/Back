@@ -26,7 +26,9 @@ app.get('/ingredient', (req, res) => {
     if(err) {
       res.status(500).send(err)
     } else {
+
       res.json(results)
+      
     }  })
 })
 
@@ -189,13 +191,14 @@ app.post('/sales', (req, res) => {
   data = {
     id_box: req.body.id_box
   }
-  connection.query(`INSERT INTO sales SET id_box = ?`, data, (err) => {
+  connection.query(`INSERT INTO sales SET id_box = ?`, data.id_box, (err) => {
     if(err){
       console.log(data.id_box)
       res.status(500).send(err)
     } else {
     connection.query('SELECT id_ingredient, quantity FROM quantities_ingredient WHERE id_box = ?', data.id_box,
     (err, results) => {
+      
       if(err){
         res.status(500).send(err)
       } else {
@@ -209,6 +212,7 @@ app.post('/sales', (req, res) => {
               if(err){
                 res.status(500).send(err)
               } else {
+                console.log(results)
                 let id_stock_ingredient= results[0].id_ingredient
                 let kg = results[0].kg
                 let resta_quantity = kg - quantity
