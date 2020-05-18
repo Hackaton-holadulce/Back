@@ -1,5 +1,5 @@
-CREATE DATABASE `ddbb_dulce9`;
-USE `ddbb_dulce9`;
+CREATE DATABASE `ddbb_dulce3`;
+USE `ddbb_dulce3`;
 
 CREATE TABLE `box_recipe` (
   `id_box` int PRIMARY KEY AUTO_INCREMENT,
